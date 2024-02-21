@@ -9,57 +9,79 @@ import {
   SearchOutlined,
 } from "@mui/icons-material";
 import { shades } from "../../theme";
+import { setIsCartOpen } from "../../state";
+
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  return;
-  <Box
-    display="flex"
-    alignItems="center"
-    width="100%"
-    height="60px"
-    backgroundColor="rgba(255,255,255,0.95)"
-    color="black"
-    position="fixed"
-    top="0"
-    left="0"
-    zIndex="1"
-  >
+  const cart = useSelector((state) => state.cart.cart);
+  return (
     <Box
-      width="80%"
-      margin="auto"
       display="flex"
-      justifyContent="space-between"
       alignItems="center"
+      width="100%"
+      height="60px"
+      backgroundColor="rgba(255,255,255,0.95)"
+      color="black"
+      position="fixed"
+      top="0"
+      left="0"
+      zIndex="1"
     >
       <Box
-        onClick={() => navigate("/")}
-        sx={{ "&:hover": { cursor: "pointer" } }}
-        color={shades.secondary[500]}
-      >
-        ECOMMERCE
-      </Box>
-      <Box
+        width="80%"
+        margin="auto"
         display="flex"
         justifyContent="space-between"
-        columnGap="20"
-        zIndex="2"
+        alignItems="center"
       >
-        <IconButton sx={{ color: "black" }}>
-          <SearchOutlined />
-        </IconButton>
-        <IconButton sx={{ color: "black" }}>
-          <PersonOutline />
-        </IconButton>
-        <IconButton sx={{ color: "black" }}>
-          <ShoppingBagOutlined />
-        </IconButton>
-        <IconButton sx={{ color: "black" }}>
-          <MenuOutlined />
-        </IconButton>
+        <Box
+          onClick={() => navigate("/")}
+          sx={{ "&:hover": { cursor: "pointer" } }}
+          color={shades.secondary[500]}
+        >
+          ECOMMERCE
+        </Box>
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          columnGap="20"
+          zIndex="2"
+        >
+          <IconButton sx={{ color: "black" }}>
+            <SearchOutlined />
+          </IconButton>
+          <IconButton sx={{ color: "black" }}>
+            <PersonOutline />
+          </IconButton>
+          <Badge
+            badgeContent={cart.lenght}
+            color="secondary"
+            invisible={cart.lenght === 0}
+            sx={{
+              "& .MuiBadge-badge": {
+                right: 0,
+                top: 0,
+                padding: "0 4px",
+                hight: "14px",
+                minWidth: "13px",
+              },
+            }}
+          >
+            <IconButton
+              sx={{ color: "black" }}
+              onClick={() => dispatch(setIsCartOpen({}))}
+            >
+              <ShoppingBagOutlined />
+            </IconButton>
+          </Badge>
+          <IconButton sx={{ color: "black" }}>
+            <MenuOutlined />
+          </IconButton>
+        </Box>
       </Box>
     </Box>
-  </Box>;
+  );
 };
 
 export default Navbar;

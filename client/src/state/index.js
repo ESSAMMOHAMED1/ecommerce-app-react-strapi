@@ -1,7 +1,6 @@
-import { FlashOnRounded } from "@mui/icons-material";
 import { createSlice } from "@reduxjs/toolkit";
 
-const intialState = {
+const initialState = {
   isCartOpen: false,
   cart: [],
   items: [],
@@ -9,17 +8,20 @@ const intialState = {
 
 export const cartSlice = createSlice({
   name: "cart",
-  intialState,
+  initialState,
   reducers: {
-    setItems: (stat, action) => {
-      stat.items = action.payload;
+    setItems: (state, action) => {
+      state.items = action.payload;
     },
-    addToCart: (stat, action) => {
-      stat.cart = [...stat.cart, action.payload.items];
+
+    addToCart: (state, action) => {
+      state.cart = [...state.cart, action.payload.item];
     },
-    removeFromCart: (stat, action) => {
-      stat.cart = stat.cart.filter((item) => item.id !== action.payload.id);
+
+    removeFromCart: (state, action) => {
+      state.cart = state.cart.filter((item) => item.id !== action.payload.id);
     },
+
     increaseCount: (state, action) => {
       state.cart = state.cart.map((item) => {
         if (item.id === action.payload.id) {
@@ -28,15 +30,17 @@ export const cartSlice = createSlice({
         return item;
       });
     },
+
     decreaseCount: (state, action) => {
       state.cart = state.cart.map((item) => {
-        if (item.id === action.payload.id && item.count > 0) {
+        if (item.id === action.payload.id && item.count > 1) {
           item.count--;
         }
         return item;
       });
     },
-    setIsOpenCart: (state) => {
+
+    setIsCartOpen: (state) => {
       state.isCartOpen = !state.isCartOpen;
     },
   },
@@ -48,7 +52,7 @@ export const {
   removeFromCart,
   increaseCount,
   decreaseCount,
-  setIsOpenCart,
+  setIsCartOpen,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
