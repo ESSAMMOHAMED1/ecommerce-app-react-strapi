@@ -2,8 +2,8 @@ import React from "react";
 import { Box, IconButton, Typography, useMediaQuery } from "@mui/material";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import NavigateBefore from "@mui/icons-material/NavigateBefore";
-import NavigateNext from "@mui/icons-material/NavigateNext";
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { shades } from "../../theme";
 //import all images
 const importAll = (r) =>
@@ -37,11 +37,7 @@ const MainCarousel = () => {
             zIndex: "10",
           }}
         >
-          <NavigateBefore
-            sx={{
-              fontSize: 40,
-            }}
-          />
+          <NavigateBeforeIcon sx={{ fontSize: 40 }} />
         </IconButton>
       )}
       renderArrowNext={(onClickHandler, hasNext, label) => (
@@ -56,11 +52,7 @@ const MainCarousel = () => {
             zIndex: "10",
           }}
         >
-          <NavigateNext
-            sx={{
-              fontSize: 40,
-            }}
-          />
+          <NavigateNextIcon sx={{ fontSize: 40 }} />
         </IconButton>
       )}
     >
@@ -81,19 +73,23 @@ const MainCarousel = () => {
             padding="20px"
             borderRadius="1px"
             textAlign="left"
-            backgroundColor="rgb(0,0,0,0.4)"
-            top="46px"
+            backgroundColor="rgb(0, 0, 0, 0.4)"
+            position="absolute"
+            top="46%"
             left={isNonMobile ? "10%" : "0"}
             right={isNonMobile ? undefined : "0"}
             margin={isNonMobile ? undefined : "0 auto"}
             maxWidth={isNonMobile ? undefined : "240px"}
           >
-            <Typography color={shades.secondary[200]}>--- NEW ITEMS</Typography>
-            <Typography variant="h1">SUMMER SALE </Typography>
-            <Typography fontWeight="bold"
-            color={shades.secondary[300]}
-            sx={{textDecoration:"underline"}}
-            >DISCOVER MORE </Typography>
+            <Typography color={shades.secondary[200]}>-- NEW ITEMS</Typography>
+            <Typography variant="h1">Summer Sale</Typography>
+            <Typography
+              fontWeight="bold"
+              color={shades.secondary[300]}
+              sx={{ textDecoration: "underline" }}
+            >
+              Discover More
+            </Typography>
           </Box>
         </Box>
       ))}
