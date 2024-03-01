@@ -43,12 +43,7 @@ const ShoppingList = () => {
         indicatorColor="primary"
         value={value}
         onChange={handelChange}
-        centerd
-        TabIndicatorProps={{
-          sx: {
-            display: isNonMobil ? "block" : "non",
-          },
-        }}
+        centered
         sx={{
           m: "25px",
           "& .MuiTabs-flexContainer": {
