@@ -23,10 +23,14 @@ const ShoppingList = () => {
   useEffect(() => {
     getItmes();
   }, []);
-
-  return(
-    <div>Shopping List</div>
-  )
+  const topRatedItems = items.filter(items.attributes.category === "topRated");
+  const newArrivalsItems = items.filter(
+    items.attributes.category === "newArrivals"
+  );
+  const beastSellersItems = items.filter(
+    items.attributes.category === "beastSellers"
+  );
+  return <div>Shopping List</div>;
 };
 
 export default ShoppingList;
