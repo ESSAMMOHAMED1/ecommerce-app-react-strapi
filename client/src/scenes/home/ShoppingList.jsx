@@ -77,7 +77,7 @@ const ShoppingList = () => {
           newArrivalsItems.map((item) => (
             <Item item={item} key={`${item.name}-${item.id}`} />
           ))}
-        {value === "beastSellers" &&
+        {value === "bestSellers" &&
           bestSellersItems.map((item) => (
             <Item item={item} key={`${item.name}-${item.id}`} />
           ))}

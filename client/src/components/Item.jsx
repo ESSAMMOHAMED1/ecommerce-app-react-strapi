@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { IconButton, Box, Typography, useTheme, Button } from "@mui/material";
@@ -10,12 +9,13 @@ import { useNavigate } from "react-router-dom";
 
 const Item = ({ item, width }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const [count, setCount] = useState(1);
-  const [isHover, setIsHover] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const {
     palette: { neutral },
   } = useTheme();
+
   const { category, price, name, image } = item.attributes;
   const {
     data: {
@@ -31,8 +31,8 @@ const Item = ({ item, width }) => {
     <Box width={width}>
       <Box
         position="relative"
-        onMouseOver={() => setIsHover(true)}
-        onMouseOut={() => setIsHover(false)}
+        onMouseOver={() => setIsHovered(true)}
+        onMouseOut={() => setIsHovered(false)}
       >
         <img
           alt={item.name}
@@ -43,7 +43,7 @@ const Item = ({ item, width }) => {
           style={{ cursor: "pointer" }}
         />
         <Box
-          display={isHover ? "blocked" : "non"}
+          display={isHovered ? "block" : "none"}
           position="absolute"
           bottom="10%"
           left="0"
@@ -65,22 +65,22 @@ const Item = ({ item, width }) => {
                 <AddIcon />
               </IconButton>
             </Box>
-            {/* button */}
             <Button
               onClick={() => {
-                dispatch(addToCart({ ...item, count }));
+                dispatch(addToCart({ item: { ...item, count } }));
               }}
               sx={{ backgroundColor: shades.primary[300], color: "white" }}
             >
-              ADD TO CART
+              Add to Cart
             </Button>
           </Box>
         </Box>
       </Box>
+
       <Box mt="3px">
         <Typography variant="subtitle2" color={neutral.dark}>
           {category
-            .replace(/[A-Z]/g, "$1")
+            .replace(/([A-Z])/g, " $1")
             .replace(/^./, (str) => str.toUpperCase())}
         </Typography>
         <Typography>{name}</Typography>
