@@ -1,6 +1,4 @@
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { Badge, Box, IconButton } from "@mui/material";
 import {
   PersonOutline,
@@ -8,20 +6,22 @@ import {
   MenuOutlined,
   SearchOutlined,
 } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 import { shades } from "../../theme";
 import { setIsCartOpen } from "../../state";
 
-const Navbar = () => {
+function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
+
   return (
     <Box
       display="flex"
       alignItems="center"
       width="100%"
       height="60px"
-      backgroundColor="rgba(255,255,255,0.95)"
+      backgroundColor="rgba(255, 255, 255, 0.95)"
       color="black"
       position="fixed"
       top="0"
@@ -40,12 +40,12 @@ const Navbar = () => {
           sx={{ "&:hover": { cursor: "pointer" } }}
           color={shades.secondary[500]}
         >
-          ECOMMERCE
+          ECOMMER
         </Box>
         <Box
           display="flex"
           justifyContent="space-between"
-          columnGap="20"
+          columnGap="20px"
           zIndex="2"
         >
           <IconButton sx={{ color: "black" }}>
@@ -55,22 +55,22 @@ const Navbar = () => {
             <PersonOutline />
           </IconButton>
           <Badge
-            badgeContent={cart.lenght}
+            badgeContent={cart.length}
             color="secondary"
-            invisible={cart.lenght === 0}
+            invisible={cart.length === 0}
             sx={{
               "& .MuiBadge-badge": {
-                right: 0,
-                top: 0,
+                right: 5,
+                top: 5,
                 padding: "0 4px",
-                hight: "14px",
+                height: "14px",
                 minWidth: "13px",
               },
             }}
           >
             <IconButton
-              sx={{ color: "black" }}
               onClick={() => dispatch(setIsCartOpen({}))}
+              sx={{ color: "black" }}
             >
               <ShoppingBagOutlined />
             </IconButton>
@@ -82,6 +82,6 @@ const Navbar = () => {
       </Box>
     </Box>
   );
-};
+}
 
 export default Navbar;

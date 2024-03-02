@@ -1,29 +1,36 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Box, Typography, Tab, Tabs, useMediaQuery } from "@mui/material";
-import { setItems } from "../../state";
+import React, { useEffect, useState } from "react";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
 import Item from "../../components/Item";
+import { Typography } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useDispatch, useSelector } from "react-redux";
+import { setItems } from "../../state";
 
 const ShoppingList = () => {
   const dispatch = useDispatch();
   const [value, setValue] = useState("all");
-  const items = useSelector((stat) => stat.cart.items);
-  const isNonMobil = useMediaQuery("(min-width:600px)");
-  console.log("items", items);
-  const handelChange = (event, newValue) => {
+  const items = useSelector((state) => state.cart.items);
+  const breakPoint = useMediaQuery("(min-width:600px)");
+
+  const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  async function getItmes() {
+
+  async function getItems() {
     const items = await fetch(
       "http://localhost:1337/api/items?populate=image",
       { method: "GET" }
     );
-    const itemJson = await items.json();
-    dispatch(setItems(itemJson.data));
+    const itemsJson = await items.json();
+    dispatch(setItems(itemsJson.data));
   }
+
   useEffect(() => {
-    getItmes();
-  }, []);
+    getItems();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   const topRatedItems = items.filter(
     (item) => item.attributes.category === "topRated"
   );
@@ -33,17 +40,19 @@ const ShoppingList = () => {
   const bestSellersItems = items.filter(
     (item) => item.attributes.category === "bestSellers"
   );
+
   return (
     <Box width="80%" margin="80px auto">
       <Typography variant="h3" textAlign="center">
-        Our featured <b>Products</b>
+        Our Featured <b>Products</b>
       </Typography>
       <Tabs
         textColor="primary"
         indicatorColor="primary"
         value={value}
-        onChange={handelChange}
+        onChange={handleChange}
         centered
+        TabIndicatorProps={{ sx: { display: breakPoint ? "block" : "none" } }}
         sx={{
           m: "25px",
           "& .MuiTabs-flexContainer": {
@@ -59,7 +68,7 @@ const ShoppingList = () => {
       <Box
         margin="0 auto"
         display="grid"
-        gridTemplateColumns="repeat(auto-fill,300px)"
+        gridTemplateColumns="repeat(auto-fill, 300px)"
         justifyContent="space-around"
         rowGap="20px"
         columnGap="1.33%"
