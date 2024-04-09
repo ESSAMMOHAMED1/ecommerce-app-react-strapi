@@ -3,3 +3,13 @@
                 {paragraph?.children[0]?.text}
               </Typography>
             ))}
+
+
+
+            {value === "description" &&
+          item?.attributes?.longDescription.map((paragraph, index) => (
+            <Typography key={index}>{paragraph?.children[0]?.text}</Typography>
+          ))}
+
+          src={`http://localhost:1337${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
+

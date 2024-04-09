@@ -51,7 +51,7 @@ const ItemDetails = () => {
   }, [itemId]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <Box width="80%" m="80px auto">
-      <Box flexWrap="wrap" columnGap="40px">
+      <Box display="flex" flexWrap="wrap" columnGap="40px">
         {/* IMAGES */}
         <Box flex="1 1 40%" mb="40px">
           <img
@@ -59,9 +59,10 @@ const ItemDetails = () => {
             width="100%"
             height="100%"
             src={`http://localhost:1337${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
-            style={{ objectFit: "contain", width: "50%" }}
+            style={{ objectFit: "contain" }}
           />
         </Box>
+
         {/* ACTIONS */}
         <Box flex="1 1 50%" mb="40px">
           <Box display="flex" justifyContent="space-between">
@@ -117,7 +118,8 @@ const ItemDetails = () => {
           </Box>
         </Box>
       </Box>
-      {/* INFORMATIONS */}
+
+      {/* INFORMATION */}
       <Box m="20px 0">
         <Tabs value={value} onChange={handleChange}>
           <Tab label="DESCRIPTION" value="description" />
@@ -130,6 +132,24 @@ const ItemDetails = () => {
             <Typography key={index}>{paragraph?.children[0]?.text}</Typography>
           ))}
         {value === "reviews" && <div>reviews</div>}
+      </Box>
+
+      {/* RELATED ITEMS */}
+      <Box mt="50px" width="100%">
+        <Typography variant="h3" fontWeight="bold">
+          Related Products
+        </Typography>
+        <Box
+          mt="20px"
+          display="flex"
+          flexWrap="wrap"
+          columnGap="1.33%"
+          justifyContent="space-between"
+        >
+          {items.slice(0, 3).map((item, i) => (
+            <Item key={`${item.name}-${i}`} item={item} />
+          ))}
+        </Box>
       </Box>
     </Box>
   );
