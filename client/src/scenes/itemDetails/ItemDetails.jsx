@@ -5,6 +5,8 @@ import { IconButton, Box, Typography, Button, Taps, Tap } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 import { shades } from "../../theme";
 import { addToCart } from "../../state";
 import { useParams } from "react-router-dom";
@@ -57,7 +59,7 @@ const ItemDetails = () => {
             width="100%"
             height="100%"
             src={`http://localhost:1337${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
-            style={{ objectFit: "contain", width: "50%"}}
+            style={{ objectFit: "contain", width: "50%" }}
           />
         </Box>
         {/* ACTIONS */}
@@ -114,6 +116,20 @@ const ItemDetails = () => {
             <Typography>CATEGORIES: {item?.attributes?.category}</Typography>
           </Box>
         </Box>
+      </Box>
+      {/* INFORMATIONS */}
+      <Box m="20px 0">
+        <Tabs value={value} onChange={handleChange}>
+          <Tab label="DESCRIPTION" value="description" />
+          <Tab label="REVIEWS" value="reviews" />
+        </Tabs>
+      </Box>
+      <Box display="flex" flexWrap="wrap" gap="15px">
+        {value === "description" &&
+          item?.attributes?.longDescription.map((paragraph, index) => (
+            <Typography key={index}>{paragraph?.children[0]?.text}</Typography>
+          ))}
+        {value === "reviews" && <div>reviews</div>}
       </Box>
     </Box>
   );
