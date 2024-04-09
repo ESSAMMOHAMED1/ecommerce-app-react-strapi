@@ -17,13 +17,16 @@ const ItemDetails = () => {
   const [count, setCount] = useState(1);
   const [item, setItem] = useState(null);
   const [items, setItems] = useState([]);
-  const handelChange = (event, newValue) => {
+  const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
   async function getItem() {
     const item = await fetch(
-      `http://localhost:1337/api/items/${itemId}?populate=imge`,
-      { method: "GET" }
+      `http://localhost:1337/api/items/${itemId}?populate=image`,
+      {
+        method: "GET",
+      }
     );
     const itemJson = await item.json();
     setItem(itemJson.data);
@@ -31,17 +34,19 @@ const ItemDetails = () => {
 
   async function getItems() {
     const items = await fetch(
-      "http://localhost:1337/api/items?populate=image",
-      { method: "GET" }
+      `http://localhost:1337/api/items?populate=image`,
+      {
+        method: "GET",
+      }
     );
     const itemsJson = await items.json();
     setItems(itemsJson.data);
   }
+
   useEffect(() => {
     getItem();
     getItems();
-  }, [item]);
-
+  }, [itemId]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <Box width="80%" m="80px auto">
       <Box flexWrap="wrap" columnGap="40px">
@@ -52,7 +57,7 @@ const ItemDetails = () => {
             width="100%"
             height="100%"
             src={`http://localhost:1337${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
-            style={{ objectFit: "contain" }}
+            style={{ objectFit: "contain", width: "50%"}}
           />
         </Box>
         {/* ACTIONS */}
@@ -65,9 +70,11 @@ const ItemDetails = () => {
           <Box m="65px 0 25px 0">
             <Typography variant="h3">{item?.attributes?.name}</Typography>
             <Typography>${item?.attributes?.price}</Typography>
-            <Typography sx={{ mt: "20px" }}>
-              {item?.attributes?.longDescription}
-            </Typography>
+            {item?.attributes?.longDescription.map((paragraph, index) => (
+              <Typography key={index} sx={{ mt: "20px" }}>
+                {paragraph?.children[0]?.text}
+              </Typography>
+            ))}
           </Box>
 
           <Box display="flex" alignItems="center" minHeight="50px">

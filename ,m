@@ -1,0 +1,5 @@
+{item?.attributes?.longDescription.map((paragraph, index) => (
+              <Typography key={index}>
+                {paragraph?.children[0]?.text}
+              </Typography>
+            ))}
