@@ -41,6 +41,17 @@ const ItemDetails = () => {
     getItem();
     getItems();
   }, [item]);
+
+  return (
+    <Box width="80%" m="80px auto">
+      <Box flexWrap="wrap" columnGap="40px">
+        {/* IMAGES */}
+        <Box flex="1 1 40%" mb="40px">
+          <img alt={item?.name} />
+        </Box>
+      </Box>
+    </Box>
+  );
 };
 
 export default ItemDetails;
