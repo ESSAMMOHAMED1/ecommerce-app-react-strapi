@@ -4,6 +4,32 @@ import { Formik } from "formik";
 import { Box, Button, Stepper, Step, StepLabel } from "@mui/material";
 import * as yup from "yup";
 import { shades } from "../../theme";
+const initialValues = {
+  billingAddress: {
+    firstName: "",
+    lastName: "",
+    country: "",
+    street1: "",
+    street2: "",
+    city: "",
+    state: "",
+    zipCode: "",
+  },
+  shippingAddress: {
+    isSameAddress: true,
+    firstName: "",
+    lastName: "",
+    country: "",
+    street1: "",
+    street2: "",
+    city: "",
+    state: "",
+    zipCode: "",
+  },
+  email: "",
+  phoneNumber: "",
+};
+
 const Checkout = () => {
   const [activeStep, setActiveStep] = useState(0);
   const cart = useSelector((state) => state.cart.cart);
@@ -20,9 +46,12 @@ const Checkout = () => {
           <StepLabel>Billing</StepLabel>
         </Step>
         <Step>
-          <StepLabel>Payment</StepLabel> 
+          <StepLabel>Payment</StepLabel>
         </Step>
       </Stepper>
+      <Box>
+        <Formik></Formik>
+      </Box>
     </Box>
   );
 };
