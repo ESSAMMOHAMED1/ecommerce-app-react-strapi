@@ -12,10 +12,19 @@ const Checkout = () => {
   const handelFormSubmit = (value, action) => {
     setActiveStep(activeStep + 1);
   };
-  async function makePayment(values) {
-    
-  }
-  return <Box></Box>;
+  async function makePayment(values) {}
+  return (
+    <Box width="80%" m="100px auto">
+      <Stepper activeStep={activeStep} sx={{ m: " 20px 0" }}>
+        <Step>
+          <StepLabel>Billing</StepLabel>
+        </Step>
+        <Step>
+          <StepLabel>Payment</StepLabel> 
+        </Step>
+      </Stepper>
+    </Box>
+  );
 };
 
 export default Checkout;
