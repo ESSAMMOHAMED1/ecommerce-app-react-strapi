@@ -1,4 +1,5 @@
 import { React, useState } from "react";
+import { loadStripe } from "@stripe/stripe-js";
 import { useSelector } from "react-redux";
 import { Formik } from "formik";
 import { Box, Button, Stepper, Step, StepLabel } from "@mui/material";
@@ -6,6 +7,9 @@ import * as yup from "yup";
 import { shades } from "../../theme";
 import Shipping from "./Shipping";
 import Payment from "./Payment";
+const stripePromis = loadStripe(
+  "pk_test_51P47ElLpFAHFSJKgEXTIhwdu92YGuBFJ9MHIqJMDi7kdpk1TaCVQf1heMGJ0fyPVu7dn4KuaVeJzMslFDZrAnDQB00XHExqDGy"
+);
 const initialValues = {
   billingAddress: {
     firstName: "",
