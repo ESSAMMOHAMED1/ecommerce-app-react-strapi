@@ -19,5 +19,7 @@ const AddressForm = ({
       getIn(touched, formattedName(field)) &&
         getIn(errors, formattedName(field))
     );
+  const formattedHelper = (field) =>
+    getIn(touched, formattedName(field)) && getIn(errors, formattedName(field));
 };
 export default AddressForm;
