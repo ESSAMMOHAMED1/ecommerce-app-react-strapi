@@ -4,6 +4,7 @@ import { Formik } from "formik";
 import { Box, Button, Stepper, Step, StepLabel } from "@mui/material";
 import * as yup from "yup";
 import { shades } from "../../theme";
+import Shipping from "./Shipping";
 const initialValues = {
   billingAddress: {
     firstName: "",
