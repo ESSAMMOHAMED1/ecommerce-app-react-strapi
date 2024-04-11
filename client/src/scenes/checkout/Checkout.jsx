@@ -87,8 +87,21 @@ const Checkout = () => {
   const cart = useSelector((state) => state.cart.cart);
   const isFirstStep = activeStep === 0;
   const isSecondStep = activeStep === 1;
-  const handelFormSubmit = (value, action) => {
+  const handelFormSubmit = (values, actions) => {
     setActiveStep(activeStep + 1);
+    // this copies the billing address onto shipping address
+    if (isFirstStep && values.shippingAddress.isSameAddress) {
+      actions.setFieldValue("shippingAddress", {
+        ...values.billingAddress,
+        isSameAddress: true,
+      });
+    }
+
+    if (isSecondStep) {
+      makePayment(values);
+    }
+
+    actions.setTouched({});
   };
   async function makePayment(values) {}
   return (
@@ -128,6 +141,40 @@ const Checkout = () => {
                   setFieldValue={setFieldValue}
                 />
               )}
+              <Box display="flex" justifyContent="space-between" gap="50px">
+                {!isFirstStep && (
+                  <Button
+                    fullWidth
+                    color="primary"
+                    variant="contained"
+                    sx={{
+                      backgroundColor: shades.primary[200],
+                      boxShadow: "none",
+                      color: "white",
+                      borderRadius: 0,
+                      padding: "15px 40px",
+                    }}
+                    onClick={() => setActiveStep(activeStep - 1)}
+                  >
+                    Back
+                  </Button>
+                )}
+                <Button
+                  fullWidth
+                  type="submit"
+                  color="primary"
+                  variant="contained"
+                  sx={{
+                    backgroundColor: shades.primary[400],
+                    boxShadow: "none",
+                    color: "white",
+                    borderRadius: 0,
+                    padding: "15px 40px",
+                  }}
+                >
+                  {!isSecondStep ? "Next" : "Place Order"}
+                </Button>
+              </Box>
             </form>
           )}
         </Formik>
