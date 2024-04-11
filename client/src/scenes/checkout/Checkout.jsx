@@ -1,4 +1,5 @@
 import { React, useState } from "react";
+import { loadStripe } from "@stripe/stripe-js";
 import { useSelector } from "react-redux";
 import { Formik } from "formik";
 import { Box, Button, Stepper, Step, StepLabel } from "@mui/material";
@@ -6,6 +7,9 @@ import * as yup from "yup";
 import { shades } from "../../theme";
 import Shipping from "./Shipping";
 import Payment from "./Payment";
+const stripePromise = loadStripe(
+  "pk_test_51P47ElLpFAHFSJKgEXTIhwdu92YGuBFJ9MHIqJMDi7kdpk1TaCVQf1heMGJ0fyPVu7dn4KuaVeJzMslFDZrAnDQB00XHExqDGy"
+);
 const initialValues = {
   billingAddress: {
     firstName: "",
@@ -104,7 +108,27 @@ const Checkout = () => {
 
     actions.setTouched({});
   };
-  async function makePayment(values) {}
+  async function makePayment(values) {
+    const stripe = await stripePromise;
+    const requestBody = {
+      userName: [values.firstName, values.lastName].join(" "),
+      email: values.email,
+      products: cart.map(({ id, count }) => ({
+        id,
+        count,
+      })),
+    };
+
+    const response = await fetch("http://localhost:1337/api/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(requestBody),
+    });
+    const session = await response.json();
+    await stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+  }
   return (
     <Box width="80%" m="100px auto">
       <Stepper activeStep={activeStep} sx={{ m: " 20px 0" }}>
