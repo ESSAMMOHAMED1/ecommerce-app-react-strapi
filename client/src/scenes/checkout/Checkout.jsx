@@ -87,7 +87,7 @@ const Checkout = () => {
   const cart = useSelector((state) => state.cart.cart);
   const isFirstStep = activeStep === 0;
   const isSecondStep = activeStep === 1;
-  const handelFormSubmit = (value, action) => {
+  const handelFormSubmit = (values, actions) => {
     setActiveStep(activeStep + 1);
     // this copies the billing address onto shipping address
     if (isFirstStep && values.shippingAddress.isSameAddress) {
