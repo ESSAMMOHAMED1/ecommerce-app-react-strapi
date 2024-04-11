@@ -5,6 +5,7 @@ import { Box, Button, Stepper, Step, StepLabel } from "@mui/material";
 import * as yup from "yup";
 import { shades } from "../../theme";
 import Shipping from "./Shipping";
+import Payment from "./Payment";
 const initialValues = {
   billingAddress: {
     firstName: "",
@@ -138,6 +139,16 @@ const Checkout = () => {
                   handleBlur={handleBlur}
                   handleChange={handleChange}
                   handleSubmit={handleSubmit}
+                  setFieldValue={setFieldValue}
+                />
+              )}
+              {isSecondStep && (
+                <Payment
+                  values={values}
+                  errors={errors}
+                  touched={touched}
+                  handleBlur={handleBlur}
+                  handleChange={handleChange}
                   setFieldValue={setFieldValue}
                 />
               )}
