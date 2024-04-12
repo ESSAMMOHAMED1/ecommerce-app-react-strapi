@@ -36,7 +36,8 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
         payment_method_types: ["card"],
         customer_email: email,
         mode: "payment",
-        success_url: "http://localhost:3000/checkout/success",
+        success_url:
+          "https://ecommerce-app-react-strapi.vercel.app/checkout/success",
         cancel_url: "http://localhost:3000",
         line_items: lineItems,
       });
