@@ -2,7 +2,7 @@
   "name": "server",
   "private": true,
   "version": "0.1.0",
-  "description": "A Strapi application",
+  "description": "shop-app",
   "scripts": {
     "develop": "strapi develop",
     "start": "strapi start",
@@ -22,7 +22,7 @@
     "styled-components": "5.3.3"
   },
   "author": {
-    "name": "A Strapi developer"
+    "name": "ESSAM MOHAMED"
   },
   "strapi": {
     "uuid": "82799aa0-a0bf-4e1e-aaa5-c6f480091a03"
