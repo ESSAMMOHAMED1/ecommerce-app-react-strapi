@@ -92,9 +92,8 @@ const Checkout = () => {
   const cart = useSelector((state) => state.cart.cart);
   const isFirstStep = activeStep === 0;
   const isSecondStep = activeStep === 1;
-  const handelFormSubmit = (values, actions) => {
+  const handleFormSubmit = (values, actions) => {
     setActiveStep(activeStep + 1);
-    // this copies the billing address onto shipping address
     if (isFirstStep && values.shippingAddress.isSameAddress) {
       actions.setFieldValue("shippingAddress", {
         ...values.billingAddress,
@@ -119,19 +118,21 @@ const Checkout = () => {
       })),
     };
 
-    const response = await fetch("http://localhost:1337/api/orders", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(requestBody),
-    });
+    const response = await fetch(
+      "https://growing-authority-5f57562f37.strapiapp.com/admin/api/orders",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(requestBody),
+      }
+    );
     const session = await response.json();
-    await stripe.redirectToCheckout({
-      sessionId: session.id,
-    });
+    await stripe.redirectToCheckout({ sessionId: session.id });
   }
+
   return (
     <Box width="80%" m="100px auto">
-      <Stepper activeStep={activeStep} sx={{ m: " 20px 0" }}>
+      <Stepper activeStep={activeStep} sx={{ m: "20px 0" }}>
         <Step>
           <StepLabel>Billing</StepLabel>
         </Step>
@@ -141,7 +142,7 @@ const Checkout = () => {
       </Stepper>
       <Box>
         <Formik
-          onSubmit={handelFormSubmit}
+          onSubmit={handleFormSubmit}
           initialValues={initialValues}
           validationSchema={checkoutSchema[activeStep]}
         >
@@ -162,7 +163,6 @@ const Checkout = () => {
                   touched={touched}
                   handleBlur={handleBlur}
                   handleChange={handleChange}
-                  handleSubmit={handleSubmit}
                   setFieldValue={setFieldValue}
                 />
               )}

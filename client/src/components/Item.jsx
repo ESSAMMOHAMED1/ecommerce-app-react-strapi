@@ -7,6 +7,8 @@ import { shades } from "../theme";
 import { addToCart } from "../state";
 import { useNavigate } from "react-router-dom";
 
+const API_URL = "https://growing-authority-5f57562f37.strapiapp.com";
+
 const Item = ({ item, width }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -35,10 +37,10 @@ const Item = ({ item, width }) => {
         onMouseOut={() => setIsHovered(false)}
       >
         <img
-          alt={item.name}
+          alt={name}
           width="300px"
           height="400px"
-          src={`http://localhost:1337${url}`}
+          src={`${API_URL}${url}`}
           onClick={() => navigate(`/item/${item.id}`)}
           style={{ cursor: "pointer" }}
         />
